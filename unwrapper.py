@@ -5,6 +5,7 @@ import requests
 import re
 import logging
 import browser_cookie3
+import random
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -21,6 +22,7 @@ class Unwrapper():
 		self._driver = webdriver.Chrome('binary_downloader/chromedriver')
 		self._driver.get('http://amazon.com');
 		self._itemURLs = []
+		self._ID = random.randint(1, 1000)
 	
 	def openBox(self):
 		_LOGGER.info("Checking if box is waiting to be clicked.")
@@ -126,6 +128,9 @@ class Unwrapper():
 		for element in elements:
 			self._itemURLs.append(element.get_attribute("href"))
 
+	def getID(self):
+		print(self._ID)
+
 	def start(self):
 		# Decide how many pages to go through
 		_LOGGER.info("Adding cookies")
@@ -134,5 +139,5 @@ class Unwrapper():
 		Unwrapper.grabURLs(self, 0)
 
 		for url in self._itemURLs:
-			_LOGGER.info("Playing give away with this url: " + url)
+			_LOGGER.info("ID: " + str(self.ID) + " Playing give away with this url: " + url)
 			Unwrapper.playGA(self, url)
