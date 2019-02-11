@@ -3,9 +3,12 @@ import os
 import sys
 import re
 import logging
+
 from datetime import datetime
+from unwrapper import Unwrapper
 
 _LOGGER = logging.getLogger(__name__)
+
 
 def handle_args():
     parser = argparse.ArgumentParser(
@@ -32,9 +35,15 @@ def handle_args():
     return (args['download_binary'], args['enable_debug'])
 
 def main():
-	(download_binary, enable_debug) = handle_args()
+    (download_binary, enable_debug) = handle_args()
 
-	setup_logging(enable_debug)
+    setup_logging(enable_debug)
+
+    if download_binary:
+        raise NotImplementedError
+
+    unrape = Unwrapper()
+    unrape.start()
 
 def setup_logging(enable_debug=False):
     logging_level = logging.DEBUG if enable_debug else logging.INFO
@@ -54,4 +63,4 @@ def setup_logging(enable_debug=False):
     logging.getLogger('').addHandler(console)  # add handler to the root logger
 
 if __name__ == '__main__':
-	main()
+    main()
