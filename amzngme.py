@@ -6,6 +6,7 @@ import logging
 
 from datetime import datetime
 from unwrapper import Unwrapper
+from reader import TextReader
 from joblib import Parallel, delayed
 
 _LOGGER = logging.getLogger(__name__)
@@ -43,13 +44,12 @@ def main():
     if download_binary:
         raise NotImplementedError
 
-    unwrap1 = Unwrapper()
-    unwrap2 = Unwrapper()
-
-    lista = []
-    lista.append(unwrap1)
-    lista.append(unwrap2)
-    Parallel(n_jobs=-1)(delayed(wrap.start()) for wrap in lista)
+    unwrap1 = Unwrapper().run()
+    #unwrap2 = Unwrapper()
+    #lista = []
+    #lista.append(unwrap1)
+    #lista.append(unwrap2)
+    #Parallel(n_jobs=-1)(delayed(wrap.start()) for wrap in lista)
 
 def setup_logging(enable_debug=False):
     logging_level = logging.DEBUG if enable_debug else logging.INFO
