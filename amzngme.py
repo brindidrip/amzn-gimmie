@@ -23,6 +23,11 @@ def handle_args():
         help="Download a local binary file for the chrome web driver."
     )
     parser.add_argument(
+        "--page",
+        default=1,
+        dest="starting_page",
+        help="Select a page to start at")
+    parser.add_argument(
         "--debug",
         action='store_true',
         default=False,
@@ -34,17 +39,17 @@ def handle_args():
     input_args = dict(args)
     _LOGGER.debug("Input args: %s", input_args)
 
-    return (args['download_binary'], args['enable_debug'])
+    return (args['download_binary'], args['enable_debug'], int(args['starting_page']))
 
 def main():
-    (download_binary, enable_debug) = handle_args()
+    (download_binary, enable_debug, starting_page) = handle_args()
 
     setup_logging(enable_debug)
 
     if download_binary:
         raise NotImplementedError
 
-    gaClient = GAClient().run()
+    gaClient = GAClient().run(starting_page)
     #gacList = []
     #Parallel(n_jobs=-1)(delayed(client.run()) for client in gacList)
 
