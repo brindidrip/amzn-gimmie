@@ -5,7 +5,7 @@ import re
 import logging
 
 from datetime import datetime
-from unwrapper import Unwrapper
+from giveaway import GAClient
 from reader import TextReader
 from joblib import Parallel, delayed
 
@@ -44,12 +44,9 @@ def main():
     if download_binary:
         raise NotImplementedError
 
-    unwrap1 = Unwrapper().run()
-    #unwrap2 = Unwrapper()
-    #lista = []
-    #lista.append(unwrap1)
-    #lista.append(unwrap2)
-    #Parallel(n_jobs=-1)(delayed(wrap.start()) for wrap in lista)
+    gaClient = GAClient().run()
+    #gacList = []
+    #Parallel(n_jobs=-1)(delayed(client.run()) for client in gacList)
 
 def setup_logging(enable_debug=False):
     logging_level = logging.DEBUG if enable_debug else logging.INFO
