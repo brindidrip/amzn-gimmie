@@ -22,9 +22,9 @@ class Detector():
 			_LOGGER.debug(e)
 			return False
 
-		if result != "Brindid, you didn't win":
-			while True:
-				time.sleep(1)
+		if result.split(", ", 1)[1] != "you didn't win":
+			input("You won... press enter to continue opening giveaway boxes.")
+
 		_LOGGER.info(result)
 
 	def detectBox(self, driver):
